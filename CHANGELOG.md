@@ -30,4 +30,5 @@ First Steam Workshop release.
 - Robots brought on a mission always land on nearby tiles they can walk to the shuttle from, never behind a wall or on fire, gas or mines.
 - Robots revived with a Reanimatron keep their inventory exactly as it was: no extra Fist in a weapon slot, and the vest and backpack stay in their slots.
 - "Repairs complete: <robot>" notification on the ship when a robot finishes repairing, like the clone healing one.
+- Robots whose gun is empty with no ammo to reload now switch to a weapon that can still fire, including weapon limbs like the Judge ABC on Combat ARs, instead of walking up to punch.
 - Requires Mod Configuration Menu (Crynano_ModConfigMenu).

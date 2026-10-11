@@ -239,5 +239,8 @@ partial class Program
         repairRoster.Robots.Add(new RobotRecord{RepairEnd=start.AddHours(-1)});
         Check(QuasiRobotics.Patches.RobotRepairNotifyPatch.FinishedBetween(repairRoster,start,start.AddHours(4)).Count==0
             && QuasiRobotics.Patches.RobotRepairNotifyPatch.FinishedBetween(repairRoster,start,start.AddHours(6)).Count==1,"repair notification fires once, when the repair ends");
+        Check(RobotWeaponFallback.Score(false,false,false,false)==0 && RobotWeaponFallback.Score(false,true,true,true)==0,"dry or broken gun counts as useless");
+        Check(RobotWeaponFallback.Score(false,false,true,false)>RobotWeaponFallback.Score(false,false,false,true)
+            && RobotWeaponFallback.Score(false,false,false,true)>RobotWeaponFallback.Score(true,false,false,false),"loaded gun beats reloadable gun beats melee");
     }
 }
