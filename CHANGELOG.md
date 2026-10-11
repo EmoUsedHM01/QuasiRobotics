@@ -29,4 +29,5 @@ First Steam Workshop release.
 - All mod text moved to Localization/, one file per game language (English for now in each). The mod follows the game language and falls back to English. See Localization/README.md to translate.
 - Robots brought on a mission always land on nearby tiles they can walk to the shuttle from, never behind a wall or on fire, gas or mines.
 - Robots revived with a Reanimatron keep their inventory exactly as it was: no extra Fist in a weapon slot, and the vest and backpack stay in their slots.
+- "Repairs complete: <robot>" notification on the ship when a robot finishes repairing, like the clone healing one.
 - Requires Mod Configuration Menu (Crynano_ModConfigMenu).

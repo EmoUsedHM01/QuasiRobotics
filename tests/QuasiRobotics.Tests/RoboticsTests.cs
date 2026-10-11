@@ -233,5 +233,11 @@ partial class Program
         }
         Check(ModText.Format("quasirobotics.droppods.inbound_many",3)=="Drop Pods inbound: 3 robots.","texts with numbers fill in");
         Check(ModText.Get("quasirobotics.no_such_key")=="quasirobotics.no_such_key","an unknown key shows as itself");
+        var start=new DateTime(2100,1,1);
+        var repairRoster=new RobotRoster();
+        repairRoster.Robots.Add(new RobotRecord{RepairEnd=start.AddHours(5)});
+        repairRoster.Robots.Add(new RobotRecord{RepairEnd=start.AddHours(-1)});
+        Check(QuasiRobotics.Patches.RobotRepairNotifyPatch.FinishedBetween(repairRoster,start,start.AddHours(4)).Count==0
+            && QuasiRobotics.Patches.RobotRepairNotifyPatch.FinishedBetween(repairRoster,start,start.AddHours(6)).Count==1,"repair notification fires once, when the repair ends");
     }
 }

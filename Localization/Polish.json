@@ -110,5 +110,6 @@
   "quasirobotics.variant.recreational": "Recreational AR",
   "quasirobotics.variant.robot": "Robot",
   "quasirobotics.roster.repairing": "Repairing {0}",
-  "quasirobotics.departure.add_robot": "Add Robot"
+  "quasirobotics.departure.add_robot": "Add Robot",
+  "quasirobotics.notification.repair_complete": "Repairs complete: {0}"
 }
