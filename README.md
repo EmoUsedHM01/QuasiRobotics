@@ -1,7 +1,5 @@
 # QuasiRobotics
 
-Workshop ID: 3817709455
-
 **Requires [Mod Configuration Menu](https://steamcommunity.com/sharedfiles/filedetails/?id=3469678797).**
 
 **Not required, but recommended [Direct Follower Orders](https://steamcommunity.com/sharedfiles/filedetails/?id=3784424405).**
