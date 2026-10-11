@@ -1,0 +1,54 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <AssemblyName>QuasiRobotics</AssemblyName>
+    <RootNamespace>QuasiRobotics</RootNamespace>
+    <Product>QuasiRobotics</Product>
+    <Description>Register, equip and deploy AR robots alongside your operators.</Description>
+    <ComVisible>false</ComVisible>
+    <!-- Release builds copy the mod into LocalUserPresets for testing. Pass -p:Deploy=false to skip. -->
+    <Deploy Condition="'$(Deploy)' == '' and '$(Configuration)' == 'Release'">true</Deploy>
+    <WorkshopDir>$(RepoRoot)workshop\</WorkshopDir>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\*.png" LogicalName="QuasiRobotics.%(Filename)%(Extension)" />
+    <!-- Localization\: one file per game language (see Localization\README.md). -->
+    <EmbeddedResource Include="..\..\Localization\*.json" LogicalName="QuasiRobotics.Localization.%(Filename)%(Extension)" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Assembly-CSharp"><HintPath>$(QuasimorphManaged)\Assembly-CSharp.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="0Harmony"><HintPath>$(QuasimorphManaged)\0Harmony.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Newtonsoft.Json"><HintPath>$(QuasimorphManaged)\Newtonsoft.Json.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="SimpleJSON"><HintPath>$(QuasimorphManaged)\SimpleJSON.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.CoreModule"><HintPath>$(QuasimorphManaged)\UnityEngine.CoreModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.AudioModule"><HintPath>$(QuasimorphManaged)\UnityEngine.AudioModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.ImageConversionModule"><HintPath>$(QuasimorphManaged)\UnityEngine.ImageConversionModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.InputLegacyModule"><HintPath>$(QuasimorphManaged)\UnityEngine.InputLegacyModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.UIModule"><HintPath>$(QuasimorphManaged)\UnityEngine.UIModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.UI"><HintPath>$(QuasimorphManaged)\UnityEngine.UI.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="MCM"><HintPath>$(McmDir)\MCM.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Unity.TextMeshPro"><HintPath>$(QuasimorphManaged)\Unity.TextMeshPro.dll</HintPath><Private>false</Private></Reference>
+  </ItemGroup>
+
+  <!-- workshop\ is the exact folder uploaded to Steam: manifest, thumbnail and this DLL. -->
+  <Target Name="CopyToWorkshopFolder" AfterTargets="Build">
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(WorkshopDir)" SkipUnchangedFiles="true" />
+    <ItemGroup>
+      <LocalizationFiles Include="..\..\Localization\*.json" />
+    </ItemGroup>
+    <Copy SourceFiles="@(LocalizationFiles)" DestinationFolder="$(WorkshopDir)Localization" SkipUnchangedFiles="true" />
+  </Target>
+
+  <Target Name="DeployToLocalMods" AfterTargets="CopyToWorkshopFolder" Condition="'$(Deploy)' == 'true'">
+    <ItemGroup>
+      <WorkshopFiles Include="$(WorkshopDir)modmanifest.json;$(WorkshopDir)QuasiRobotics.dll" />
+      <WorkshopFiles Include="$(WorkshopDir)thumbnail.png" Condition="Exists('$(WorkshopDir)thumbnail.png')" />
+    </ItemGroup>
+    <Copy SourceFiles="@(WorkshopFiles)" DestinationFolder="$(QuasimorphLocalMods)\QuasiRobotics" SkipUnchangedFiles="true" />
+    <ItemGroup>
+      <WorkshopLocalization Include="$(WorkshopDir)Localization\*.json" />
+    </ItemGroup>
+    <Copy SourceFiles="@(WorkshopLocalization)" DestinationFolder="$(QuasimorphLocalMods)\QuasiRobotics\Localization" SkipUnchangedFiles="true" />
+    <Message Importance="high" Text="QuasiRobotics deployed to $(QuasimorphLocalMods)\QuasiRobotics (restart the game to load it)." />
+  </Target>
+</Project>

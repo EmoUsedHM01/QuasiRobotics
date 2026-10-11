@@ -1,0 +1,10 @@
+bin/
+obj/
+workshop/
+game-reference/
+.vs/
+*.user
+
+# Decompiled game code and old AR Recovery material stay local only.
+game-reference/
+legacy/

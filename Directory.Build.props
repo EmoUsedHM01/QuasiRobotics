@@ -1,0 +1,16 @@
+<Project>
+  <!-- Shared settings for every project in this folder. Override any of these
+       on the command line, e.g. dotnet build -p:QuasimorphDir="D:\Games\Quasimorph" -->
+  <PropertyGroup>
+    <Version>1.0.0</Version>
+    <LangVersion>latest</LangVersion>
+    <RepoRoot>$(MSBuildThisFileDirectory)</RepoRoot>
+    <QuasimorphDir Condition="'$(QuasimorphDir)' == ''">C:\Program Files (x86)\Steam\steamapps\common\Quasimorph</QuasimorphDir>
+    <QuasimorphManaged>$(QuasimorphDir)\Quasimorph_Data\Managed</QuasimorphManaged>
+    <QuasimorphWorkshop Condition="'$(QuasimorphWorkshop)' == ''">$(QuasimorphDir)\..\..\workshop\content\2059170</QuasimorphWorkshop>
+    <!-- Mod Configuration Menu (Workshop 3469678797), a manifest dependency. -->
+    <McmDir Condition="'$(McmDir)' == ''">$(QuasimorphWorkshop)\3469678797</McmDir>
+    <!-- The game loads DLL mods from here as well as from the Workshop. -->
+    <QuasimorphLocalMods Condition="'$(QuasimorphLocalMods)' == ''">$(USERPROFILE)\AppData\LocalLow\Magnum Scriptum Ltd\Quasimorph\LocalUserPresets</QuasimorphLocalMods>
+  </PropertyGroup>
+</Project>

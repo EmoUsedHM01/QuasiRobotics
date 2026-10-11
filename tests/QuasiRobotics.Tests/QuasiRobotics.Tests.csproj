@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <NoWarn>NU1701;NU1702;SYSLIB0050</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- Deploy=false: running the tests must not overwrite the installed test copy. -->
+    <ProjectReference Include="..\..\src\QuasiRobotics\QuasiRobotics.csproj" AdditionalProperties="Deploy=false" />
+    <PackageReference Include="Lib.Harmony" Version="2.3.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Assembly-CSharp"><HintPath>$(QuasimorphManaged)\Assembly-CSharp.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="SimpleJSON"><HintPath>$(QuasimorphManaged)\SimpleJSON.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.CoreModule"><HintPath>$(QuasimorphManaged)\UnityEngine.CoreModule.dll</HintPath><Private>false</Private></Reference>
+  </ItemGroup>
+</Project>
