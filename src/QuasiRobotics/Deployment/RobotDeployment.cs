@@ -328,21 +328,39 @@ public static class RobotCorpseIdentityPatch
 [HarmonyPatch(typeof(ItemInteractionSystem), nameof(ItemInteractionSystem.UseResurrectKit))]
 public static class RobotResurrectionPatch
 {
-    [HarmonyPrefix] public static void Prefix(MapObstacles mapObstacles, BasePickupItem item, MapCell cell, out CreatureData __state)
+    // The game revives into a fresh body with its default Fist, then pours the
+    // corpse's items into it one by one, which drops the vest and backpack out of
+    // their slots. A roster robot keeps its own inventory instead: the game is
+    // handed an empty one to empty out, and the robot's is put back afterwards.
+    private static Inventory keptInventory;
+
+    [HarmonyPrefix] public static void Prefix(Mercenaries mercenaries, MapObstacles mapObstacles, BasePickupItem item, MapCell cell, out CreatureData __state)
     {
+        keptInventory = null;
         var device = item.Record<PlaceableDeviceRecord>();
         __state = device == null ? null : ItemInteractionSystem.TakeValidCorpse(mapObstacles, device, cell.Position)?.CorpseStorage?.CreatureData;
+        if (__state?.Inventory == null || RobotDeployment.FindCorpseRobot(RobotRoster.For(mercenaries), __state) == null) return;
+        keptInventory = __state.Inventory;
+        __state.Inventory = new Inventory();
     }
     // creature is an out parameter: it must be taken by ref to be read here.
     [HarmonyPostfix] public static void Postfix(Mercenaries mercenaries, Creatures creatures, ref Monster creature,
         ItemInteractionSystem.ResurrectResult __result, CreatureData __state)
     {
-        if (__result != ItemInteractionSystem.ResurrectResult.Success || creature == null || __state == null) return;
+        var inventory = keptInventory;
+        keptInventory = null;
+        if (__result != ItemInteractionSystem.ResurrectResult.Success || creature == null || __state == null)
+        {
+            // Failed or blocked: the corpse keeps its items.
+            if (inventory != null && __state != null) __state.Inventory = inventory;
+            return;
+        }
         var roster = RobotRoster.For(mercenaries);
         var record = RobotDeployment.FindCorpseRobot(roster, __state);
         if (record == null) return;
         var identity = record.Identity;
         var data = creature.CreatureData;
+        if (inventory != null) data.Inventory = inventory;
         RobotIdentity.Bind(data, identity);
         data.WoundSlotMap = __state.WoundSlotMap;
         data.AugmentationMap = __state.AugmentationMap;

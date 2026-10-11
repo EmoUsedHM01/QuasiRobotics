@@ -1,10 +1,12 @@
 # QuasiRobotics
 
+Workshop ID: 3817709455
+
 **Requires [Mod Configuration Menu](https://steamcommunity.com/sharedfiles/filedetails/?id=3469678797).**
 
 **Not required, but recommended [Direct Follower Orders](https://steamcommunity.com/sharedfiles/filedetails/?id=3784424405).**
 
-Build, upgrade, and field a squad of AR robots alongside your operator. This was somewhat inspired by the [Squad: More Operatives](https://steamcommunity.com/sharedfiles/filedetails/?id=3776322157) and [AR Recovery](https://steamcommunity.com/sharedfiles/filedetails/?id=3787327571) mods, but with a different take on combating the every-growing horde of enemies the game starts to throw at you. I love playing with summons in games if I can, and this was the mod that I created in order to scratch that itch. There is some warped humour I included in small parts, but typically I just made sure that each aspect of the mod met my own personal level of polish (and I hope that reflects).
+Build, upgrade, and field a squad of AR robots alongside your operator. This was somewhat inspired by the [Squad: More Operatives](https://steamcommunity.com/sharedfiles/filedetails/?id=3776322157) and [AR Recovery](https://steamcommunity.com/sharedfiles/filedetails/?id=3787327571) mods, but with a different take on combating the ever-growing horde of enemies the game starts to throw at you. I love playing with summons in games if I can, and this was the mod that I created in order to scratch that itch. There is some warped humour I included in small parts, but typically I just made sure that each aspect of the mod met my own personal level of polish (and I hope that reflects).
 
 ## Robotics Ship Room
 

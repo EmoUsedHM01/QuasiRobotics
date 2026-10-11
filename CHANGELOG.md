@@ -28,4 +28,5 @@ First Steam Workshop release.
 - No Friendly Fire (by NBKRedSpy) built in: allies such as robots and turrets no longer hurt you or each other; your own shots still hit everyone. Mod Config Menu toggle "Disable friendly fire" (default on).
 - All mod text moved to Localization/, one file per game language (English for now in each). The mod follows the game language and falls back to English. See Localization/README.md to translate.
 - Robots brought on a mission always land on nearby tiles they can walk to the shuttle from, never behind a wall or on fire, gas or mines.
+- Robots revived with a Reanimatron keep their inventory exactly as it was: no extra Fist in a weapon slot, and the vest and backpack stay in their slots.
 - Requires Mod Configuration Menu (Crynano_ModConfigMenu).
