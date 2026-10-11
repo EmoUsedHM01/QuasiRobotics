@@ -2,7 +2,7 @@
 [b]Requires [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3469678797]Mod Configuration Menu[/url].[/b]
 [b]Not required, but recommended [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3784424405]Direct Follower Orders[/url].[/b]
 
-[b]Source [url=https://github.com/EmoUsedHM01]HERE[/url].[/b]
+[b]Source [url=https://github.com/EmoUsedHM01/QuasiRobotics]HERE[/url].[/b]
 
 Build, upgrade, and field a squad of AR robots alongside your operator. This was somewhat inspired by the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3776322157]Squad: More Operatives[/url] and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3787327571]AR Recovery[/url] mods, but with a different take on combating the every-growing horde of enemies the game starts to throw at you. I love playing with summons in games if I can, and this was the mod that I created in order to scratch that itch. There is some warped humour I included in small parts, but typically I just made sure that each aspect of the mod met my own personal level of polish (and I hope that reflects).
 
