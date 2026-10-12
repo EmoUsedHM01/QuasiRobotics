@@ -268,7 +268,10 @@ public static class RoboticsModule
         if (cameras != null && !cameras.Contains(ModuleId) && cameras[nearest.Key] is Component source)
         {
             var copy = Object.Instantiate(source.gameObject, source.transform.parent);
-            copy.name = source.gameObject.name + "_" + ModuleId;
+            // Keep the source camera's name: the camera brain's custom blends
+            // match "any camera -> <room camera name>", so a new name got no
+            // blend and the view cut into Robotics instead of gliding.
+            copy.name = source.gameObject.name;
             copy.transform.position += anchor.position - nearest.Value.position;
             cameras[ModuleId] = copy.GetComponent(source.GetType());
         }
