@@ -291,9 +291,14 @@ public static class RobotMissionFinishSyncPatch
 [HarmonyPatch(typeof(MissionSystem), nameof(MissionSystem.ProcessFinishedDungeonData))]
 public static class RobotMissionResultPatch
 {
-    [HarmonyPrefix] public static void Prefix(RaidMetadata raidMetadata, DungeonFinishedData finishedData, out bool __state) =>
-        __state = finishedData.Reason == GameFinishedReason.LeaveStation ||
-            (finishedData.Reason == GameFinishedReason.MissionFinished && raidMetadata.WinCondition.WinConditionsPassed);
+    [HarmonyPrefix] public static void Prefix(Mercenaries mercenaries, RaidMetadata raidMetadata, DungeonFinishedData finishedData, out bool __state) =>
+        __state = Returns(finishedData.Reason, raidMetadata.WinCondition.WinConditionsPassed,
+            mercenaries.MercenaryInRaid?.CreatureData?.Health?.Alive ?? false);
+    // Robots come home when the mission is won, or when the operator gets out
+    // alive: evacuating early or leaving a Bramfatura through a portal counts
+    // as MissionFinished without the win condition passed.
+    public static bool Returns(GameFinishedReason reason, bool won, bool operatorAlive) =>
+        reason == GameFinishedReason.LeaveStation || (reason == GameFinishedReason.MissionFinished && (won || operatorAlive));
     [HarmonyPostfix] public static void Postfix(Mercenaries mercenaries, MagnumProgression magnumSpaceship, SpaceTime spaceTime, bool __state) =>
         RobotDeployment.Complete(RobotRoster.For(mercenaries), __state, RoboticsModule.HasSalvageDrones(magnumSpaceship), spaceTime.Time, RobotDeployment.Repair);
 }

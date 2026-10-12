@@ -242,5 +242,9 @@ partial class Program
         Check(RobotWeaponFallback.Score(false,false,false,false)==0 && RobotWeaponFallback.Score(false,true,true,true)==0,"dry or broken gun counts as useless");
         Check(RobotWeaponFallback.Score(false,false,true,false)>RobotWeaponFallback.Score(false,false,false,true)
             && RobotWeaponFallback.Score(false,false,false,true)>RobotWeaponFallback.Score(true,false,false,false),"loaded gun beats reloadable gun beats melee");
+        Check(RobotMissionResultPatch.Returns(GameFinishedReason.MissionFinished,false,true)
+            && RobotMissionResultPatch.Returns(GameFinishedReason.MissionFinished,true,false)
+            && !RobotMissionResultPatch.Returns(GameFinishedReason.MissionFinished,false,false)
+            && !RobotMissionResultPatch.Returns(GameFinishedReason.PlayerDead,false,true),"robots return on a win or a live extraction (Bramfatura portal)");
     }
 }
