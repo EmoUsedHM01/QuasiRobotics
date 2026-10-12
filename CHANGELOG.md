@@ -28,6 +28,7 @@ First Steam Workshop release.
 - No Friendly Fire (by NBKRedSpy) built in: allies such as robots and turrets no longer hurt you or each other; your own shots still hit everyone. Mod Config Menu toggle "Disable friendly fire" (default on).
 - All mod text moved to Localization/, one file per game language (English for now in each). The mod follows the game language and falls back to English. See Localization/README.md to translate.
 - Robots brought on a mission always land on nearby tiles they can walk to the shuttle from, never behind a wall or on fire, gas or mines.
+- Robots still land next to you when the landing spot is boxed in (closed shuttle door, tight start area). Before, they could stay aboard.
 - Robots revived with a Reanimatron keep their inventory exactly as it was: no extra Fist in a weapon slot, and the vest and backpack stay in their slots.
 - "Repairs complete: <robot>" notification on the ship when a robot finishes repairing, like the clone healing one.
 - Robots whose gun is empty with no ammo to reload now switch to a weapon that can still fire, including weapon limbs like the Judge ABC on Combat ARs, instead of walking up to punch.

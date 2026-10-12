@@ -90,9 +90,18 @@ public static class RobotDeployment
         var creatures = state.Get<Creatures>();
         var grid = state.Get<MapGrid>();
         var entities = state.Get<MapEntities>();
-        var cells = WalkableCellsNear(grid, creatures.Player.CreatureData.Position, SpawnRadius)
-            .Where(c => c.IsFloor && !c.IsObjBlockPass && !c.IsDoor && c.IsPassable(SafeMask)
-                && creatures.GetCreature(c.X, c.Y) == null && entities.Get(c.X, c.Y) == null).ToList();
+        bool Standable(MapCell c) => c.IsFloor && !c.IsObjBlockPass && !c.IsDoor && c.IsPassable(SafeMask)
+            && creatures.GetCreature(c.X, c.Y) == null && entities.Get(c.X, c.Y) == null;
+        var start = creatures.Player.CreatureData.Position;
+        var cells = WalkableCellsNear(grid, start, SpawnRadius).Where(Standable).ToList();
+        int walkable = cells.Count;
+        // Some shuttles and start areas wall the player in at landing, so the
+        // walk search finds too few tiles. Then fall back to the nearest safe
+        // tiles, as the game does for followers it carries between floors.
+        if (cells.Count < roster.PendingSpawnIds.Count)
+            cells.AddRange(grid.BreadthFirstSearch(start, c => true, SpawnRadius)
+                .Where(c => Standable(c) && !cells.Contains(c)));
+        Plugin.Logger.Log($"Robot landing at {start}: {roster.PendingSpawnIds.Count} robot(s), {walkable} walkable tile(s), {cells.Count} usable.");
         try
         {
         foreach (var id in roster.PendingSpawnIds.ToArray())
@@ -112,12 +121,12 @@ public static class RobotDeployment
     }
     // Mission start: robots land on the nearest free tiles they can walk to the
     // shuttle from. The search only steps through walkable tiles (no walls,
-    // furniture, closed doors, fences or deep water), so a tile behind a wall is
+    // furniture, locked doors, fences or deep water; robots open closed doors), so a tile behind a wall is
     // never picked even when it is close as the crow flies.
     public const int SpawnRadius = 20;
     public static readonly ObstacleType WalkMask = MapCell.AllObstacles
         & ~(ObstacleType.Wall | ObstacleType.Obj | ObstacleType.Deep | ObstacleType.Indestructable
-            | ObstacleType.BlockedDoor | ObstacleType.ClosedDoor | ObstacleType.Fence);
+            | ObstacleType.BlockedDoor | ObstacleType.Fence);
     // Tiles a robot may stand on: walkable and free of hazards.
     public static readonly ObstacleType SafeMask = WalkMask
         & ~(ObstacleType.Toxic | ObstacleType.Fire | ObstacleType.Mine | ObstacleType.Gas | ObstacleType.Roots);
