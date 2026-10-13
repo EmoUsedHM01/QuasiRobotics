@@ -35,4 +35,5 @@ First Steam Workshop release.
 - Robots now come home whenever the operator extracts alive, including leaving a Bramfatura through a portal or evacuating early. Before, only a won mission brought them back, so they (and Salvage Drones wrecks) were lost.
 - Robots whose gun is empty with no ammo to reload now switch to a weapon that can still fire, including weapon limbs like the Judge ABC on Combat ARs, instead of walking up to punch.
 - Robots can no longer be given a vest or backpack, and their vest and backpack slots are hidden. Mod Config Menu option "Robots can wear vests and backpacks" (default off) brings them back. A slot that still holds gear stays visible until you take the gear off.
+- Mod Config Menu option "Allies act before enemies" (default off): turn order becomes Player, allies, enemies instead of Player, enemies, allies.
 - Requires Mod Configuration Menu (Crynano_ModConfigMenu).

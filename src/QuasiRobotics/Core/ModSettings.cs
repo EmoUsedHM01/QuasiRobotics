@@ -20,6 +20,8 @@ public sealed class ModSettings
 
 	public bool AllowRobotVestAndBackpack;
 
+	public bool AlliesActBeforeEnemies;
+
 	public bool UninstallMode;
 
 	[JsonIgnore]

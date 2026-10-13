@@ -248,6 +248,9 @@ partial class Program
             && !RobotGear.Refuses(new Inventory(4,4,0,Inventory.BackpackMode.Endless,false).VestSlot,false),"robot vest and backpack slots refuse gear unless MCM allows it");
         Check(RobotGearSlotView.ShouldHide(gearInv.VestSlot,false) && !RobotGearSlotView.ShouldHide(gearInv.VestSlot,true)
             && !RobotGearSlotView.ShouldHide(gearInv.ArmorSlot,false),"empty robot vest and backpack slots are hidden unless MCM allows them");
+        var order=new List<string>{"gas","player","enemy1","ally1","enemy2","ally2"};
+        QuasiRobotics.Patches.AlliesFirstTurnOrder.ReorderSlots(order,new List<int>{2,3,4,5},t=>t.StartsWith("ally"));
+        Check(string.Join(",",order)=="gas,player,ally1,ally2,enemy1,enemy2","allies-first turn order keeps the player first and each group in order");
         var rules=new[]{
             new Cinemachine.CinemachineBlenderSettings.CustomBlend{m_From="**ANY CAMERA**",m_To="navigation"},
             new Cinemachine.CinemachineBlenderSettings.CustomBlend{m_From="**ANY CAMERA**",m_To="hangar"}};

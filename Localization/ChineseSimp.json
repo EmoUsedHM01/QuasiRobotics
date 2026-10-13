@@ -93,6 +93,8 @@
   "quasirobotics.mcm.robot_slots.tooltip": "打印工坊和每一级拓展机架位升级可以解锁的机甲位上限。设为2时基础2个机甲位，全升级后最多12个机甲位；设为3时全升级后最多18个机甲位。",
   "quasirobotics.mcm.disable_friendly_fire": "关闭友军误伤",
   "quasirobotics.mcm.disable_friendly_fire.tooltip": "所有友方单位（机甲、炮塔和其他己方单位）不会再对你或者其他友军造成伤害，你自己的射击依然可以命中所有单位。",
+  "quasirobotics.mcm.allies_first": "友军先于敌人行动",
+  "quasirobotics.mcm.allies_first.tooltip": "回合顺序改为：玩家、友军（机甲、炮塔、随从）、敌人。关闭时使用游戏默认顺序：玩家、敌人、友军。",
   "quasirobotics.mcm.allow_vest_backpack": "允许机甲装备战术背心和背包",
   "quasirobotics.mcm.allow_vest_backpack.tooltip": "关闭时无法为机甲装备战术背心或背包。机甲已装备的此类物品会保留，直到你手动卸下。",
   "quasirobotics.mcm.uninstall_mode": "卸载模式",

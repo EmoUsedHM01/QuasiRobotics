@@ -18,6 +18,7 @@ public static class McmIntegration
     public const string RobotSlotsKey = "RobotSlotsPerUpgrade";
     public const string DisableFriendlyFireKey = "DisableFriendlyFire";
     public const string AllowRobotVestAndBackpackKey = "AllowRobotVestAndBackpack";
+    public const string AlliesActBeforeEnemiesKey = "AlliesActBeforeEnemies";
     public const string UninstallModeKey = "UninstallMode";
 
     public static void Register()
@@ -41,6 +42,9 @@ public static class McmIntegration
             new ConfigValue(DisableFriendlyFireKey, Plugin.Settings.DisableFriendlyFire, ModText.Get("quasirobotics.mcm.section.combat"), true,
                 ModText.Get("quasirobotics.mcm.disable_friendly_fire.tooltip"),
                 ModText.Get("quasirobotics.mcm.disable_friendly_fire")),
+            new ConfigValue(AlliesActBeforeEnemiesKey, Plugin.Settings.AlliesActBeforeEnemies, ModText.Get("quasirobotics.mcm.section.combat"), false,
+                ModText.Get("quasirobotics.mcm.allies_first.tooltip"),
+                ModText.Get("quasirobotics.mcm.allies_first")),
             new ConfigValue(UninstallModeKey, Plugin.Settings.UninstallMode, ModText.Get("quasirobotics.mcm.section.uninstall"), false,
                 ModText.Get("quasirobotics.mcm.uninstall_mode.tooltip"),
                 ModText.Get("quasirobotics.mcm.uninstall_mode")),
@@ -69,6 +73,8 @@ public static class McmIntegration
                 Plugin.Settings.AllowRobotVestAndBackpack = Convert.ToBoolean(value);
             if (config.TryGetValue(DisableFriendlyFireKey, out value))
                 Plugin.Settings.DisableFriendlyFire = Convert.ToBoolean(value);
+            if (config.TryGetValue(AlliesActBeforeEnemiesKey, out value))
+                Plugin.Settings.AlliesActBeforeEnemies = Convert.ToBoolean(value);
             if (config.TryGetValue(UninstallModeKey, out value))
                 Plugin.Settings.UninstallMode = Convert.ToBoolean(value);
             Plugin.Settings.Save(Plugin.ConfigDirectories.ConfigPath);
