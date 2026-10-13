@@ -116,14 +116,14 @@ public sealed class RobotDepartureView : MonoBehaviour
     {
         UI.Chain<ArsenalScreen>().Invoke(view => {
             view.Configure(record.CreateProxy(), false);
-            ArEquipmentStorage.Enable(record.Data.Inventory, view); view.RefreshView();
+            ArEquipmentStorage.Enable(record.Data.Inventory, view); RobotGear.Track(record.Data.Inventory); view.RefreshView();
         }).HideAll().Show().Fallback<PrepareRaidScreen>();
     }
     private void OpenAugments(RobotRecord record)
     {
         UI.Chain<AugmentationScreen>().Invoke(view => {
             view.Configure(record.CreateProxy());
-            ArEquipmentStorage.Enable(record.Data.Inventory, view); view.RefreshView();
+            ArEquipmentStorage.Enable(record.Data.Inventory, view); RobotGear.Track(record.Data.Inventory); view.RefreshView();
         }).HideAll().Show().Fallback<PrepareRaidScreen>();
     }
 }

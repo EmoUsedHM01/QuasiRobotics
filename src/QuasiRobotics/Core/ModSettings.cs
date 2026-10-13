@@ -18,6 +18,8 @@ public sealed class ModSettings
 
 	public bool DisableFriendlyFire = true;
 
+	public bool AllowRobotVestAndBackpack;
+
 	public bool UninstallMode;
 
 	[JsonIgnore]

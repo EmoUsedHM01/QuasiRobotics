@@ -74,6 +74,7 @@ public sealed class ArMissionStorage : MonoBehaviour
             && ArPackageCatalogue.TryGetPackageId(data.MobClassId, out _) ? data.Inventory : null;
         showVest = false;
         if (inventory == null) return;
+        if (RobotIdentity.Find(data) != null) RobotGear.Track(inventory);
         grid = Traverse.Create(window).Field<ItemGrid>("_itemGrid").Value;
 
         ConfigureEquipment();

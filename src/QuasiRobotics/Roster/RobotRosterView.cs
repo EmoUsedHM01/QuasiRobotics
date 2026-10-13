@@ -358,7 +358,7 @@ public sealed class RobotRosterView : MonoBehaviour
         UI.Hide<MercenariesScreen>();
         UI.Chain<ArsenalScreen>().Invoke(view => {
             view.Configure(proxy, false);
-            ArEquipmentStorage.Enable(record.Data.Inventory, view);
+            ArEquipmentStorage.Enable(record.Data.Inventory, view); RobotGear.Track(record.Data.Inventory);
             view.RefreshView();
         }).Show().Fallback<MercenariesScreen>();
     }
@@ -379,7 +379,7 @@ public sealed class RobotRosterView : MonoBehaviour
         UI.Hide<MercenariesScreen>();
         UI.Chain<AugmentationScreen>().Invoke(view => {
             view.Configure(proxy);
-            ArEquipmentStorage.Enable(record.Data.Inventory, view);
+            ArEquipmentStorage.Enable(record.Data.Inventory, view); RobotGear.Track(record.Data.Inventory);
             view.RefreshView();
         }).Show().Fallback<MercenariesScreen>();
     }

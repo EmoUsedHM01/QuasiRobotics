@@ -25,7 +25,7 @@ A new Room on the HIS Magnum, **Robotics (HIS Droid R&D)**, with its own technol
 ## Also included
 
 - **No Allied Friendly Fire** (on by default): Your robots, turrets and other allies no longer hurt you or each other. Loosely based on [No Friendly Fire](https://steamcommunity.com/sharedfiles/filedetails/?id=3800002169).
-- Mod Configuration Menu options: Start with Printyard, Salvage Drones or Drop Pods, robot slots per upgrade, the Drop Pods key, friendly fire, and an uninstall mode.
+- Mod Configuration Menu options: Start with Printyard, Salvage Drones or Drop Pods, robot slots per upgrade, robot vests and backpacks, the Drop Pods key, friendly fire, and an uninstall mode.
 
 ## Adding to and removing from a campaign
 

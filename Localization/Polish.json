@@ -93,6 +93,8 @@
   "quasirobotics.mcm.robot_slots.tooltip": "Robot slots from Printyard and from each Expanded Bays upgrade. At 2: 2 slots, up to 12 with every upgrade; at 3: up to 18.",
   "quasirobotics.mcm.disable_friendly_fire": "Disable friendly fire",
   "quasirobotics.mcm.disable_friendly_fire.tooltip": "Allies (robots, turrets and other units on your side) can no longer hurt you or each other. Your own shots still hit everyone.",
+  "quasirobotics.mcm.allow_vest_backpack": "Robots can wear vests and backpacks",
+  "quasirobotics.mcm.allow_vest_backpack.tooltip": "Off: robots cannot be given a vest or backpack. Gear they already wear stays until you take it off.",
   "quasirobotics.mcm.uninstall_mode": "Uninstall mode",
   "quasirobotics.mcm.uninstall_mode.tooltip": "Saving on the ship removes all QuasiRobotics data so the save loads without the mod. Robots return to cargo as stock packages; Robotics devices are removed and refunded.",
   "quasirobotics.mcm.section.robotics": "Robotics",

@@ -141,6 +141,7 @@ public static class RobotDeployment
     {
         var creatures = state.Get<Creatures>();
         var data = record.Data;
+        RobotGear.Track(data.Inventory);
         RobotUpgrades.SyncHealth(data);
         data.Position = position;
         data.UniqueId = state.Get<RaidMetadata>().NextIdCounter;
