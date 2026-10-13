@@ -242,6 +242,11 @@ partial class Program
         Check(RobotWeaponFallback.Score(false,false,false,false)==0 && RobotWeaponFallback.Score(false,true,true,true)==0,"dry or broken gun counts as useless");
         Check(RobotWeaponFallback.Score(false,false,true,false)>RobotWeaponFallback.Score(false,false,false,true)
             && RobotWeaponFallback.Score(false,false,false,true)>RobotWeaponFallback.Score(true,false,false,false),"loaded gun beats reloadable gun beats melee");
+        var rules=new[]{
+            new Cinemachine.CinemachineBlenderSettings.CustomBlend{m_From="**ANY CAMERA**",m_To="navigation"},
+            new Cinemachine.CinemachineBlenderSettings.CustomBlend{m_From="**ANY CAMERA**",m_To="hangar"}};
+        var mirrored=RoboticsModule.MirroredBlends(rules,"navigation","navigation_robotics");
+        Check(mirrored.Count==1 && mirrored[0].m_From=="**ANY CAMERA**" && mirrored[0].m_To=="navigation_robotics","Robotics camera gets the same glide rules as the room it copies");
         Check(RobotMissionResultPatch.Returns(GameFinishedReason.MissionFinished,false,true)
             && RobotMissionResultPatch.Returns(GameFinishedReason.MissionFinished,true,false)
             && !RobotMissionResultPatch.Returns(GameFinishedReason.MissionFinished,false,false)

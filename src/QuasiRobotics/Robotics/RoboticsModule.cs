@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
 using MGSC;
+using Cinemachine;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -247,6 +248,23 @@ public static class RoboticsModule
         return order;
     }
 
+    public static void MirrorBlends(CinemachineBlenderSettings settings, string from, string to)
+    {
+        if (settings?.m_CustomBlends == null) return;
+        var blends = settings.m_CustomBlends.ToList();
+        if (blends.Any(b => b.m_From == to || b.m_To == to)) return;
+        blends.AddRange(MirroredBlends(settings.m_CustomBlends, from, to));
+        settings.m_CustomBlends = blends.ToArray();
+    }
+    public static List<CinemachineBlenderSettings.CustomBlend> MirroredBlends(
+        IEnumerable<CinemachineBlenderSettings.CustomBlend> blends, string from, string to) =>
+        blends.Where(b => b.m_From == from || b.m_To == from).Select(b => new CinemachineBlenderSettings.CustomBlend
+        {
+            m_From = b.m_From == from ? to : b.m_From,
+            m_To = b.m_To == from ? to : b.m_To,
+            m_Blend = b.m_Blend,
+        }).ToList();
+
     public static void EnsureRoom(Spaceship ship)
     {
         if (ship == null || ship.UiAnchors.ContainsKey(ModuleId)) return;
@@ -268,10 +286,12 @@ public static class RoboticsModule
         if (cameras != null && !cameras.Contains(ModuleId) && cameras[nearest.Key] is Component source)
         {
             var copy = Object.Instantiate(source.gameObject, source.transform.parent);
-            // Keep the source camera's name: the camera brain's custom blends
-            // match "any camera -> <room camera name>", so a new name got no
-            // blend and the view cut into Robotics instead of gliding.
-            copy.name = source.gameObject.name;
+            copy.name = source.gameObject.name + "_" + ModuleId;
+            // The camera brain picks its glide by camera name ("any camera ->
+            // navigation" and so on). Give the copy the same rules as the room
+            // it was copied from, or the view cuts into Robotics.
+            var brain = RobotRosterView.Field<CinemachineBrain>(manager, "_cinemachineBrain");
+            MirrorBlends(brain != null ? brain.m_CustomBlends : null, source.gameObject.name, copy.name);
             copy.transform.position += anchor.position - nearest.Value.position;
             cameras[ModuleId] = copy.GetComponent(source.GetType());
         }

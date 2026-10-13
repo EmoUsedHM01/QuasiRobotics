@@ -31,7 +31,7 @@ First Steam Workshop release.
 - Robots still land next to you when the landing spot is boxed in (closed shuttle door, tight start area). Before, they could stay aboard.
 - Robots revived with a Reanimatron keep their inventory exactly as it was: no extra Fist in a weapon slot, and the vest and backpack stay in their slots.
 - "Repairs complete: <robot>" notification on the ship when a robot finishes repairing, like the clone healing one.
-- The ship camera now glides into the Robotics room like the other rooms, instead of snapping to it.
+- The ship camera now glides into and out of the Robotics room like the other rooms, instead of snapping.
 - Robots now come home whenever the operator extracts alive, including leaving a Bramfatura through a portal or evacuating early. Before, only a won mission brought them back, so they (and Salvage Drones wrecks) were lost.
 - Robots whose gun is empty with no ammo to reload now switch to a weapon that can still fire, including weapon limbs like the Judge ABC on Combat ARs, instead of walking up to punch.
 - Requires Mod Configuration Menu (Crynano_ModConfigMenu).

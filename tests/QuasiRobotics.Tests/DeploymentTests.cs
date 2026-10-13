@@ -116,14 +116,14 @@ partial class Program
         Check(!damaged.WoundSlotMap.ContainsKey("UpgradedArm") && !damaged.AugmentationMap.ContainsKey("UpgradedArm") && damaged.WoundSlotMap.ContainsKey("RobotHead") && damaged.ImplantActivesMap.Count==0,
             "recovery cannot recreate amputated augments or retain removed implant abilities");
         var metadata=new RaidMetadata {WinCondition=new MissionWinCondition{WinConditionsPassed=true}};
-        RobotMissionResultPatch.Prefix(metadata,new DungeonFinishedData{Reason=GameFinishedReason.MissionFinished},out bool won);
+        RobotMissionResultPatch.Prefix(null,metadata,new DungeonFinishedData{Reason=GameFinishedReason.MissionFinished},out bool won);
         Check(won,"mission win uses captured native objective completion");
         metadata.WinCondition.WinConditionsPassed=false;
-        RobotMissionResultPatch.Prefix(metadata,new DungeonFinishedData{Reason=GameFinishedReason.MissionFinished},out won);
-        Check(!won,"evacuation without objective completion counts as loss");
-        RobotMissionResultPatch.Prefix(metadata,new DungeonFinishedData{Reason=GameFinishedReason.PlayerDead},out won);
+        RobotMissionResultPatch.Prefix(null,metadata,new DungeonFinishedData{Reason=GameFinishedReason.MissionFinished},out won);
+        Check(!won,"evacuation without objective completion and no live operator counts as loss");
+        RobotMissionResultPatch.Prefix(null,metadata,new DungeonFinishedData{Reason=GameFinishedReason.PlayerDead},out won);
         Check(!won,"operator death counts as loss");
-        RobotMissionResultPatch.Prefix(metadata,new DungeonFinishedData{Reason=GameFinishedReason.LeaveStation},out won);
+        RobotMissionResultPatch.Prefix(null,metadata,new DungeonFinishedData{Reason=GameFinishedReason.LeaveStation},out won);
         Check(won,"peaceful station departure returns robots");
         // Exercise the real return/repair implementation with native effect and body records.
         AccessTools.Field(typeof(EffectFactory), "_state").SetValue(Singleton<EffectFactory>.Instance,new State());

@@ -11,6 +11,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp"><HintPath>$(QuasimorphManaged)\Assembly-CSharp.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Cinemachine"><HintPath>$(QuasimorphManaged)\Cinemachine.dll</HintPath><Private>false</Private></Reference>
     <Reference Include="SimpleJSON"><HintPath>$(QuasimorphManaged)\SimpleJSON.dll</HintPath><Private>false</Private></Reference>
     <Reference Include="UnityEngine.CoreModule"><HintPath>$(QuasimorphManaged)\UnityEngine.CoreModule.dll</HintPath><Private>false</Private></Reference>
   </ItemGroup>

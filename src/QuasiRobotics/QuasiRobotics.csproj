@@ -27,6 +27,7 @@
     <Reference Include="UnityEngine.UIModule"><HintPath>$(QuasimorphManaged)\UnityEngine.UIModule.dll</HintPath><Private>false</Private></Reference>
     <Reference Include="UnityEngine.UI"><HintPath>$(QuasimorphManaged)\UnityEngine.UI.dll</HintPath><Private>false</Private></Reference>
     <Reference Include="MCM"><HintPath>$(McmDir)\MCM.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Cinemachine"><HintPath>$(QuasimorphManaged)\Cinemachine.dll</HintPath><Private>false</Private></Reference>
     <Reference Include="Unity.TextMeshPro"><HintPath>$(QuasimorphManaged)\Unity.TextMeshPro.dll</HintPath><Private>false</Private></Reference>
   </ItemGroup>
 

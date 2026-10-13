@@ -293,7 +293,7 @@ public static class RobotMissionResultPatch
 {
     [HarmonyPrefix] public static void Prefix(Mercenaries mercenaries, RaidMetadata raidMetadata, DungeonFinishedData finishedData, out bool __state) =>
         __state = Returns(finishedData.Reason, raidMetadata.WinCondition.WinConditionsPassed,
-            mercenaries.MercenaryInRaid?.CreatureData?.Health?.Alive ?? false);
+            mercenaries?.MercenaryInRaid?.CreatureData?.Health?.Alive ?? false);
     // Robots come home when the mission is won, or when the operator gets out
     // alive: evacuating early or leaving a Bramfatura through a portal counts
     // as MissionFinished without the win condition passed.
