@@ -246,6 +246,8 @@ partial class Program
         Check(RobotGear.Refuses(gearInv.VestSlot,false) && RobotGear.Refuses(gearInv.BackpackSlot,false)
             && !RobotGear.Refuses(gearInv.VestSlot,true) && !RobotGear.Refuses(gearInv.ArmorSlot,false)
             && !RobotGear.Refuses(new Inventory(4,4,0,Inventory.BackpackMode.Endless,false).VestSlot,false),"robot vest and backpack slots refuse gear unless MCM allows it");
+        Check(RobotGearSlotView.ShouldHide(gearInv.VestSlot,false) && !RobotGearSlotView.ShouldHide(gearInv.VestSlot,true)
+            && !RobotGearSlotView.ShouldHide(gearInv.ArmorSlot,false),"empty robot vest and backpack slots are hidden unless MCM allows them");
         var rules=new[]{
             new Cinemachine.CinemachineBlenderSettings.CustomBlend{m_From="**ANY CAMERA**",m_To="navigation"},
             new Cinemachine.CinemachineBlenderSettings.CustomBlend{m_From="**ANY CAMERA**",m_To="hangar"}};
