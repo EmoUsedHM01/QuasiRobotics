@@ -22,6 +22,10 @@ public sealed class ModSettings
 
 	public bool AlliesActBeforeEnemies;
 
+	public bool RobotsBionicAugmentsOnly = true;
+
+	public bool RobotsAddQuasimorphosis = true;
+
 	public bool UninstallMode;
 
 	[JsonIgnore]

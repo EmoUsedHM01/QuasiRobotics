@@ -251,6 +251,10 @@ partial class Program
         var order=new List<string>{"gas","player","enemy1","ally1","enemy2","ally2"};
         QuasiRobotics.Patches.AlliesFirstTurnOrder.ReorderSlots(order,new List<int>{2,3,4,5},t=>t.StartsWith("ally"));
         Check(string.Join(",",order)=="gas,player,ally1,ally2,enemy1,enemy2","allies-first turn order keeps the player first and each group in order");
+        Check(RobotAugmentGate.Allows("cyborg_battle",ItemClass.CyberneticAug,true) && !RobotAugmentGate.Allows("cyborg_battle",ItemClass.BioAug,true)
+            && !RobotAugmentGate.Allows("cyborg_worker",ItemClass.QuasiAug,true) && RobotAugmentGate.Allows("cyborg_recreation",ItemClass.QuasiAug,true)
+            && RobotAugmentGate.Allows("cyborg_battle",ItemClass.BioAug,false),"robots take Robotic augments only, Recreational ARs take any, toggle lifts it");
+        Check(RobotQuasimorphosisPatch.Scaled(3,2f)==6 && RobotQuasimorphosisPatch.Scaled(3,1.4f)==4 && RobotQuasimorphosisPatch.Scaled(0,2f)==0 && RobotQuasimorphosisPatch.RobotGain(null)==0,"robot passive Quasimorphosis scales with difficulty growth");
         var rules=new[]{
             new Cinemachine.CinemachineBlenderSettings.CustomBlend{m_From="**ANY CAMERA**",m_To="navigation"},
             new Cinemachine.CinemachineBlenderSettings.CustomBlend{m_From="**ANY CAMERA**",m_To="hangar"}};

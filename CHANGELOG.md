@@ -36,4 +36,6 @@ First Steam Workshop release.
 - Robots whose gun is empty with no ammo to reload now switch to a weapon that can still fire, including weapon limbs like the Judge ABC on Combat ARs, instead of walking up to punch.
 - Robots can no longer be given a vest or backpack, and their vest and backpack slots are hidden. Mod Config Menu option "Robots can wear vests and backpacks" (default off) brings them back. A slot that still holds gear stays visible until you take the gear off.
 - Mod Config Menu option "Allies act before enemies" (default off): turn order becomes Player, allies, enemies instead of Player, enemies, allies.
+- Robots can only be given Robotic augments; Recreational ARs can take any. Mod Config Menu option "Robots take Robotic augments only" (default on). Implants and augments already installed are not affected.
+- Robots on the map now add their passive Quasimorphosis gain each turn (e.g. Skull of Amaxatli), like the operator. Mod Config Menu option "Robots add passive Quasimorphosis" (default on).
 - Requires Mod Configuration Menu (Crynano_ModConfigMenu).

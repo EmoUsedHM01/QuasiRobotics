@@ -19,6 +19,8 @@ public static class McmIntegration
     public const string DisableFriendlyFireKey = "DisableFriendlyFire";
     public const string AllowRobotVestAndBackpackKey = "AllowRobotVestAndBackpack";
     public const string AlliesActBeforeEnemiesKey = "AlliesActBeforeEnemies";
+    public const string RobotsBionicAugmentsOnlyKey = "RobotsBionicAugmentsOnly";
+    public const string RobotsAddQuasimorphosisKey = "RobotsAddQuasimorphosis";
     public const string UninstallModeKey = "UninstallMode";
 
     public static void Register()
@@ -39,6 +41,12 @@ public static class McmIntegration
             new ConfigValue(AllowRobotVestAndBackpackKey, Plugin.Settings.AllowRobotVestAndBackpack, ModText.Get("quasirobotics.mcm.section.robotics"), false,
                 ModText.Get("quasirobotics.mcm.allow_vest_backpack.tooltip"),
                 ModText.Get("quasirobotics.mcm.allow_vest_backpack")),
+            new ConfigValue(RobotsBionicAugmentsOnlyKey, Plugin.Settings.RobotsBionicAugmentsOnly, ModText.Get("quasirobotics.mcm.section.robotics"), true,
+                ModText.Get("quasirobotics.mcm.bionic_augments_only.tooltip"),
+                ModText.Get("quasirobotics.mcm.bionic_augments_only")),
+            new ConfigValue(RobotsAddQuasimorphosisKey, Plugin.Settings.RobotsAddQuasimorphosis, ModText.Get("quasirobotics.mcm.section.combat"), true,
+                ModText.Get("quasirobotics.mcm.robot_quasimorphosis.tooltip"),
+                ModText.Get("quasirobotics.mcm.robot_quasimorphosis")),
             new ConfigValue(DisableFriendlyFireKey, Plugin.Settings.DisableFriendlyFire, ModText.Get("quasirobotics.mcm.section.combat"), true,
                 ModText.Get("quasirobotics.mcm.disable_friendly_fire.tooltip"),
                 ModText.Get("quasirobotics.mcm.disable_friendly_fire")),
@@ -75,6 +83,10 @@ public static class McmIntegration
                 Plugin.Settings.DisableFriendlyFire = Convert.ToBoolean(value);
             if (config.TryGetValue(AlliesActBeforeEnemiesKey, out value))
                 Plugin.Settings.AlliesActBeforeEnemies = Convert.ToBoolean(value);
+            if (config.TryGetValue(RobotsBionicAugmentsOnlyKey, out value))
+                Plugin.Settings.RobotsBionicAugmentsOnly = Convert.ToBoolean(value);
+            if (config.TryGetValue(RobotsAddQuasimorphosisKey, out value))
+                Plugin.Settings.RobotsAddQuasimorphosis = Convert.ToBoolean(value);
             if (config.TryGetValue(UninstallModeKey, out value))
                 Plugin.Settings.UninstallMode = Convert.ToBoolean(value);
             Plugin.Settings.Save(Plugin.ConfigDirectories.ConfigPath);
