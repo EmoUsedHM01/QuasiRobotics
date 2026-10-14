@@ -39,4 +39,5 @@ First Steam Workshop release.
 - Robots can only be given Robotic augments; Recreational ARs can take any. Mod Config Menu option "Robots take Robotic augments only" (default on). Implants and augments already installed are not affected.
 - Robots on the map now add their passive Quasimorphosis gain each turn (e.g. Skull of Amaxatli), like the operator. Mod Config Menu option "Robots add passive Quasimorphosis" (default on).
 - Requires Mod Configuration Menu (Crynano_ModConfigMenu).
+- Robots no longer land in a corner of the map (or not at all) on station arrival floors where the operator is placed after the map is built. They now wait and land next to the operator.
 - Works with Visible Augments (Workshop 3732022272): if it is installed, roster robots show their installed augments on the 3D model like the player does, and the robot body under each new part is hidden so it does not clip through. Enemy cyborgs are unchanged.

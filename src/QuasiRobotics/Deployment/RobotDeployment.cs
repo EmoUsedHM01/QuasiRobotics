@@ -93,6 +93,15 @@ public static class RobotDeployment
         bool Standable(MapCell c) => c.IsFloor && !c.IsObjBlockPass && !c.IsDoor && c.IsPassable(SafeMask)
             && creatures.GetCreature(c.X, c.Y) == null && entities.Get(c.X, c.Y) == null;
         var start = creatures.Player.CreatureData.Position;
+        // Some arrivals (seen on station arrival floors) build the map with the
+        // operator still at (0,0) and place them later. Wait until they are on
+        // a real floor tile, or the robots land in a corner of the map.
+        if (!Placed(start, grid.GetCell(start)?.IsFloor ?? false))
+        {
+            Plugin.Logger.Log($"Robot landing waits: operator not placed yet (at {start}).");
+            DeferredState = state;
+            return;
+        }
         var cells = WalkableCellsNear(grid, start, SpawnRadius).Where(Standable).ToList();
         int walkable = cells.Count;
         // Some shuttles and start areas wall the player in at landing, so the
@@ -124,6 +133,19 @@ public static class RobotDeployment
     // furniture, locked doors, fences or deep water; robots open closed doors), so a tile behind a wall is
     // never picked even when it is close as the crow flies.
     public const int SpawnRadius = 20;
+    // Set when the operator had no spot yet at map build; landing retries each turn tick.
+    public static State DeferredState;
+    public static bool Placed(CellPosition start, bool onFloor) => onFloor && (start.X != 0 || start.Y != 0);
+    public static void RetryDeferred()
+    {
+        var state = DeferredState;
+        var player = state?.Get<Creatures>()?.Player;
+        if (player == null) return;
+        var start = player.CreatureData.Position;
+        if (!Placed(start, state.Get<MapGrid>()?.GetCell(start)?.IsFloor ?? false)) return;
+        DeferredState = null;
+        Spawn(state);
+    }
     public static readonly ObstacleType WalkMask = MapCell.AllObstacles
         & ~(ObstacleType.Wall | ObstacleType.Obj | ObstacleType.Deep | ObstacleType.Indestructable
             | ObstacleType.BlockedDoor | ObstacleType.Fence);
@@ -273,8 +295,19 @@ public static class RobotDepartureSpawnPatch
 {
     [HarmonyPostfix] public static void Postfix(DungeonBuilder __instance)
     {
+        RobotDeployment.DeferredState = null;
         try { RobotDeployment.Spawn(RobotRosterView.Field<State>(__instance, "_state")); }
         catch (Exception ex) { Plugin.Logger.LogException(ex); }
+    }
+}
+[HarmonyPatch(typeof(TurnController), nameof(TurnController.Tick))]
+public static class RobotDeferredLandingPatch
+{
+    [HarmonyPrefix] public static void Prefix()
+    {
+        if (RobotDeployment.DeferredState == null) return;
+        try { RobotDeployment.RetryDeferred(); }
+        catch (Exception ex) { RobotDeployment.DeferredState = null; Plugin.Logger.LogException(ex); }
     }
 }
 [HarmonyPatch(typeof(ComponentsLayout), nameof(ComponentsLayout.SerializeGlobalComponents))]
