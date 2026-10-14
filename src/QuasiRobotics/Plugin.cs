@@ -67,6 +67,7 @@ public static class Plugin
 			Logger.LogError("The Robotics room could not be registered.");
 			Logger.LogException(ex);
 		}
+		VisibleAugmentsCompat.TryPatch();
 	}
 
 	[Hook(ModHookType.AfterBootstrap)]
@@ -90,6 +91,8 @@ public static class Plugin
 			Logger.LogError("Mod Configuration Menu registration failed; settings stay in config.json.");
 			Logger.LogException(ex);
 		}
+		// Again here in case Visible Augments loaded after this mod.
+		VisibleAugmentsCompat.TryPatch();
 	}
 
 	private static string DescribeBuild()
