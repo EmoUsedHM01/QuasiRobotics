@@ -92,7 +92,7 @@
   "quasirobotics.mcm.robot_slots": "Robot slots per upgrade",
   "quasirobotics.mcm.robot_slots.tooltip": "Robot slots from Printyard and from each Expanded Bays upgrade. At 2: 2 slots, up to 12 with every upgrade; at 3: up to 18.",
   "quasirobotics.mcm.disable_friendly_fire": "Disable friendly fire",
-  "quasirobotics.mcm.disable_friendly_fire.tooltip": "Allies (robots, turrets and other units on your side) can no longer hurt you or each other. Your own shots still hit everyone.",
+  "quasirobotics.mcm.disable_friendly_fire.tooltip": "Units on your side (you, robots, turrets and other allies) no longer hit each other: shots pass through allies, explosions skip them, and allies are not hurt by their own blasts. Use the game's \"Attack / throw at tile\" key (Shift + click by default) to hit an ally on purpose.",
   "quasirobotics.mcm.bionic_augments_only": "Robots take Robotic augments only",
   "quasirobotics.mcm.bionic_augments_only.tooltip": "Robots can only be given Robotic (bionic) augments. Recreational ARs can take any augment. Implants are not affected. Augments already installed stay.",
   "quasirobotics.mcm.robot_quasimorphosis": "Robots add passive Quasimorphosis",

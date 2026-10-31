@@ -4,6 +4,7 @@ using System.Linq;
 using HarmonyLib;
 using MGSC;
 using QuasiRobotics;
+using QuasiRobotics.Patches;
 using UnityEngine;
 
 partial class Program
@@ -218,8 +219,45 @@ partial class Program
         Check(!ElectricFencePatch.ShouldCounter(attacker,robot,hit,true),"a missed swing is not shocked");
         hit.wasMiss=false; attacker.CreatureAlliance=CreatureAlliance.PlayerAlliance;
         Check(!ElectricFencePatch.ShouldCounter(attacker,robot,hit,true),"allies are never shocked");
-        Check(QuasiRobotics.Patches.FriendlyFirePatch.Blocks(CreatureAlliance.PlayerAlliance,CreatureAlliance.PlayerAlliance)
-            && !QuasiRobotics.Patches.FriendlyFirePatch.Blocks(CreatureAlliance.VictimFaction,CreatureAlliance.VictimFaction),"friendly fire is blocked on the player's side only");
+        FriendlyFireTests();
+    }
+    static void FriendlyFireTests()
+    {
+        var ally=CreatureAlliance.PlayerAlliance; var foe=CreatureAlliance.VictimFaction;
+        Check(FriendlyFire.Blocks(ally,ally) && !FriendlyFire.Blocks(foe,foe),"friendly fire is blocked on the player's side only");
+        Check(FriendlyFire.Decide(false,false,true,ally,ally,false),"robots and allies cannot hit each other or the operator");
+        Check(FriendlyFire.Decide(true,false,true,ally,ally,false),"the operator cannot hit allies without a force attack");
+        Check(!FriendlyFire.Decide(true,false,true,ally,ally,true),"a force attack lets the operator hit allies");
+        Check(FriendlyFire.Decide(false,false,true,ally,ally,true),"a held force-attack key does not unlock allies' own shots");
+        Check(!FriendlyFire.Decide(false,false,true,foe,foe,false),"enemies still hit their own allies");
+        Check(!FriendlyFire.Decide(true,false,false,ally,foe,false) && !FriendlyFire.Decide(false,false,false,ally,foe,false),"enemies are still hit by everyone on the player's side");
+        Check(FriendlyFire.Decide(false,true,false,ally,ally,false),"allies are spared by their own explosions");
+        Check(!FriendlyFire.Decide(true,true,false,ally,ally,false) && !FriendlyFire.Decide(false,true,false,foe,foe,false),"the operator and enemies still take self-inflicted blast damage");
+        ForceAttack.Reset();
+        ForceAttack.OnInput(true,true);
+        Check(ForceAttack.Latched,"a force-attack order is remembered while its shots land");
+        ForceAttack.OnInput(false,false);
+        Check(ForceAttack.Latched,"the force attack lasts until the next order");
+        ForceAttack.OnInput(false,true);
+        Check(!ForceAttack.Latched,"an ordinary order ends the force attack");
+        Check(ForceAttack.AttackKey=="PreciseCursorShoot" && ForceAttack.ModifierKey=="HighlightPreciseShoot","force attack follows the game's own bindings");
+        var entity=new object();
+        Check(!ForcedExplosions.IsForced(entity),"explosions are not forced by default");
+        ForcedExplosions.MarkForced(entity); ForcedExplosions.MarkForced(entity);
+        Check(ForcedExplosions.IsForced(entity),"a forced grenade or blast is remembered");
+        // Every friendly fire hook applies to the installed game, private fields included.
+        var ff=new Harmony("ar.tests.friendlyfire");
+        foreach(var type in new[]{typeof(ForceAttackInputPatch),typeof(FriendlyProjectilePatch),typeof(FriendlyExplosionPatch),typeof(ForcedGrenadePatch),
+            typeof(ForcedGrenadeExplodePatch),typeof(ForcedExplosionPatch),typeof(FriendlyMonsterMeleePatch),typeof(FriendlyPlayerMeleePatch),typeof(FriendlyFirePatch)})
+        {
+            bool ok;
+            try { ok=ff.CreateClassProcessor(type).Patch()?.Count>0; }
+            // Methods that call into the Unity engine cannot be compiled outside the game.
+            catch(HarmonyException e) when (e.InnerException is System.Security.SecurityException) { ok=true; }
+            catch(Exception e) { Console.WriteLine(type.Name+": "+e.Message); ok=false; }
+            Check(ok,"friendly fire hook applies: "+type.Name);
+        }
+        ff.UnpatchAll("ar.tests.friendlyfire");
         Check(new ModSettings().DisableFriendlyFire,"Disable friendly fire defaults to on");
     }
     static void LocalizationTests()

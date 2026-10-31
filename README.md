@@ -24,7 +24,7 @@ A new Room on the HIS Magnum, **Robotics (HIS Droid R&D)**, with its own technol
 
 ## Also included
 
-- **No Allied Friendly Fire** (on by default): Your robots, turrets and other allies no longer hurt you or each other. Loosely based on [No Friendly Fire](https://steamcommunity.com/sharedfiles/filedetails/?id=3800002169).
+- **No Allied Friendly Fire** (on by default): You, your robots, turrets and other allies no longer hit each other. Shots pass straight through allies, explosions skip them, and allies are not hurt by their own blasts. Use the game's "Attack / throw at tile" key (Shift + click by default) to hit an ally on purpose. Loosely based on [No Friendly Fire](https://steamcommunity.com/sharedfiles/filedetails/?id=3800002169).
 - Mod Configuration Menu options: Start with Printyard, Salvage Drones or Drop Pods, robot slots per upgrade, robot vests and backpacks, Robotic-only augments, robot Quasimorphosis, the Drop Pods key, friendly fire, allies acting before enemies, and an uninstall mode.
 
 ## Adding to and removing from a campaign
